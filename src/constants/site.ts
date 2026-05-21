@@ -12,7 +12,7 @@ export const COMPANY = {
   short: "Innov8 International",
   tagline: "Nationwide Distributor of Medical Supplies",
   established: 2010,
-  email: "info@innov8intl.ph",
+  email: "info@innov8intl.com",
   phone: "+63 (2) 8000-0000",
   address: "Metro Manila, Philippines",
 };

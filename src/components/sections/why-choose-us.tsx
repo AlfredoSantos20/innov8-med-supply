@@ -2,6 +2,8 @@ import { Award, Clock, HeartPulse, Layers, ShieldCheck, Truck } from "lucide-rea
 import { FeatureCard, StatCard } from "@/components/ui/brand-cards";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { STATS } from "@/constants/site";
+import CountUp from "react-countup";
+import { useInView } from "react-intersection-observer";
 
 const FEATURES = [
   { icon: ShieldCheck, title: "Certified Quality", body: "FDA-licensed and ISO 9001:2015 certified across our supply chain." },
@@ -13,6 +15,7 @@ const FEATURES = [
 ];
 
 export function WhyChooseUs() {
+  const { ref, inView } = useInView({ threshold: 0.3, triggerOnce: true });
   return (
     <Section className="relative">
       <SectionHeader
@@ -37,10 +40,33 @@ export function WhyChooseUs() {
         ))}
       </div>
 
-      <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {STATS.map((s) => (
-          <StatCard key={s.label} value={s.value} label={s.label} />
-        ))}
+      <div ref={ref} className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {STATS.map((s) => {
+          const raw = s.value.trim();
+          const hasPlus = /\+$/.test(raw);
+          const hasPercent = /%$/.test(raw);
+          const noSuffix = raw.replace(/[+%]/g, "");
+          const num = parseFloat(noSuffix.replace(/,/g, "")) || 0;
+          const decimalsMatch = noSuffix.match(/\.(\d+)/);
+          const decimals = decimalsMatch ? decimalsMatch[1].length : 0;
+          return (
+            <StatCard
+              key={s.label}
+              label={s.label}
+              value={
+                inView ? (
+                  <span>
+                    <CountUp end={num} duration={1.2} decimals={decimals} separator="," />
+                    {hasPercent ? "%" : ""}
+                    {hasPlus ? "+" : ""}
+                  </span>
+                ) : (
+                  s.value
+                )
+              }
+            />
+          );
+        })}
       </div>
     </Section>
   );

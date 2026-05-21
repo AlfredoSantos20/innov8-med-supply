@@ -11,8 +11,8 @@ export const Route = createFileRoute("/products")({
   head: () => ({
     meta: [
       { title: "Medical Products & Equipment — Innov8 International" },
-      { name: "description", content: "Browse our full catalog of professional medical supplies and healthcare equipment." },
-      { property: "og:title", content: "Medical Products Catalog" },
+      { name: "description", content: "Browse our full products of professional medical supplies and healthcare equipment." },
+      { property: "og:title", content: "Medical Products" },
       { property: "og:description", content: "PPE, diagnostics, hospital furniture, mobility and respiratory care equipment." },
     ],
   }),
@@ -37,7 +37,7 @@ function ProductsPage() {
       <div className="pt-28">
         <Section className="py-12 md:py-16">
           <SectionHeader
-            eyebrow="Catalog"
+            eyebrow="Products"
             title="Professional medical supplies"
             description="Clinical-grade equipment and disposables — sourced, certified and delivered nationwide."
           />
@@ -47,7 +47,7 @@ function ProductsPage() {
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search products or categories…"
+              placeholder="Search products…"
               className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
             />
           </div>

@@ -17,7 +17,7 @@ export function Footer() {
       <div className="container-px relative mx-auto max-w-7xl py-16">
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-2">
-            <Logo light />
+            <Logo light className="origin-left scale-110 md:scale-125" />
             <p className="mt-5 max-w-md text-sm text-white/70">
               {COMPANY.name} — your trusted nationwide partner for professional medical
               supplies and healthcare equipment since {COMPANY.established}.
@@ -34,7 +34,13 @@ export function Footer() {
             <ul className="space-y-2 text-sm text-white/70">
               {NAV_LINKS.map((l) => (
                 <li key={l.to}>
-                  <Link to={l.to} className="hover:text-emerald">{l.label}</Link>
+                  <Link
+                    to={l.to}
+                    className="hover:text-emerald"
+                    onClick={l.to === "/" ? () => window.scrollTo({ top: 0, behavior: "smooth" }) : undefined}
+                  >
+                    {l.label}
+                  </Link>
                 </li>
               ))}
             </ul>

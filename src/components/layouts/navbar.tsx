@@ -5,6 +5,7 @@ import { Logo } from "@/components/common/logo";
 import { BrandButton } from "@/components/ui/brand-button";
 import { NAV_LINKS } from "@/constants/site";
 import { cn } from "@/lib/utils";
+import { motion, LayoutGroup } from "framer-motion";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -20,33 +21,57 @@ export function Navbar() {
 
   useEffect(() => setOpen(false), [pathname]);
 
+  // Smoothly scroll to top when navigating to the homepage
+  useEffect(() => {
+    if (pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [pathname]);
+
+  const showBg = scrolled || pathname !== "/";
+
   return (
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled ? "border-b border-border/60 bg-background/80 backdrop-blur-xl" : "bg-transparent",
+        showBg && "backdrop-blur-lg shadow-[0_10px_30px_rgba(0,0,0,0.1)]",
+        showBg ? (scrolled ? "border-b border-border/60 bg-background/70" : "bg-background/40") : "bg-transparent",
       )}
     >
       <div className="container-px mx-auto flex h-16 max-w-7xl items-center justify-between md:h-20">
-        <Logo />
+        <Logo className="origin-left scale-110 md:scale-125" />
 
-        <nav className="hidden items-center gap-1 md:flex">
-          {NAV_LINKS.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              className="rounded-full px-4 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-secondary hover:text-primary"
-              activeProps={{ className: "bg-secondary text-primary" }}
-              activeOptions={{ exact: l.to === "/" }}
-            >
-              {l.label}
-            </Link>
-          ))}
-        </nav>
+        <LayoutGroup id="main-nav-desktop">
+          <nav className="hidden items-center gap-1 md:flex">
+            {NAV_LINKS.map((l) => {
+              const isActive = l.to === "/" ? pathname === "/" : pathname.startsWith(l.to);
+              return (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  className={cn(
+                    "relative rounded-full px-4 py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-primary"
+                  )}
+                  activeOptions={{ exact: l.to === "/" }}
+                  onClick={l.to === "/" ? () => window.scrollTo({ top: 0, behavior: "smooth" }) : undefined}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-active-pill"
+                      className="absolute inset-0 rounded-full bg-secondary"
+                      transition={{ type: "spring", stiffness: 320, damping: 32 }}
+                    />
+                  )}
+                  <span className="relative z-10">{l.label}</span>
+                </Link>
+              );
+            })}
+          </nav>
+        </LayoutGroup>
 
         <div className="hidden md:block">
           <Link to="/contact">
-            <BrandButton variant="gradient" size="sm">Request a Quote</BrandButton>
+            <BrandButton variant="gradient" size="lg">Inquire Now</BrandButton>
           </Link>
         </div>
 
@@ -67,19 +92,31 @@ export function Navbar() {
         )}
       >
         <div className="container-px flex flex-col gap-1 py-4">
-          {NAV_LINKS.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              className="rounded-xl px-4 py-3 text-sm font-medium text-foreground/80 hover:bg-secondary"
-              activeProps={{ className: "bg-secondary text-primary" }}
-              activeOptions={{ exact: l.to === "/" }}
-            >
-              {l.label}
-            </Link>
-          ))}
+          <LayoutGroup id="main-nav-mobile">
+            {NAV_LINKS.map((l) => {
+              const isActive = l.to === "/" ? pathname === "/" : pathname.startsWith(l.to);
+              return (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  className={cn("relative rounded-xl px-4 py-3 text-sm font-medium text-foreground/80 hover:text-primary")}
+                  activeOptions={{ exact: l.to === "/" }}
+                  onClick={l.to === "/" ? () => window.scrollTo({ top: 0, behavior: "smooth" }) : undefined}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-active-pill"
+                      className="absolute inset-0 rounded-xl bg-secondary"
+                      transition={{ type: "spring", stiffness: 320, damping: 32 }}
+                    />
+                  )}
+                  <span className="relative z-10">{l.label}</span>
+                </Link>
+              );
+            })}
+          </LayoutGroup>
           <Link to="/contact" className="mt-2">
-            <BrandButton variant="gradient" className="w-full">Request a Quote</BrandButton>
+            <BrandButton variant="gradient" className="w-full">Inquire Now</BrandButton>
           </Link>
         </div>
       </div>

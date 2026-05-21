@@ -10,9 +10,9 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — Innov8 International Distribution" },
-      { name: "description", content: "Request a quote or speak to our medical supply distribution team." },
+      { name: "description", content: "Send an inquiry or speak to our medical supply distribution team." },
       { property: "og:title", content: "Contact Innov8 International" },
-      { property: "og:description", content: "Get a quote within 24 hours from our team." },
+      { property: "og:description", content: "Get a response to your inquiry within 24 hours from our team." },
     ],
   }),
   component: ContactPage,
@@ -33,7 +33,7 @@ function ContactPage() {
           <SectionHeader
             eyebrow="Get in touch"
             title="Let's build your supply plan"
-            description="Tell us what your institution needs — we'll respond with a tailored quote within 24 hours."
+            description="Tell us what your institution needs — we'll respond to your inquiry within 24 hours."
           />
 
           <div className="grid gap-8 lg:grid-cols-5">
@@ -139,7 +139,48 @@ function Field({
       <input
         id={name}
         name={name}
-        type={type}
+        type={name === "phone" ? "tel" : type}
+        inputMode={name === "phone" ? "tel" : undefined}
+        pattern={name === "phone" ? "^\\+63\\d{9,10}$" : undefined}
+        onInvalid={name === "phone" ? (e) => { e.currentTarget.setCustomValidity("Enter a Philippine phone number in +63 format (e.g., +639XXXXXXXXX)"); } : undefined}
+        onInput={name === "phone" ? (e) => { e.currentTarget.setCustomValidity(""); } : undefined}
+        onKeyDown={
+          name === "phone"
+            ? (e) => {
+                const k = e.key;
+                if (
+                  k === "Backspace" ||
+                  k === "Delete" ||
+                  k === "ArrowLeft" ||
+                  k === "ArrowRight" ||
+                  k === "Tab" ||
+                  k === "Home" ||
+                  k === "End"
+                ) {
+                  return;
+                }
+                if (k === "+") {
+                  const input = e.currentTarget;
+                  const atStart = input.selectionStart === 0;
+                  const hasPlus = input.value.includes("+");
+                  if (atStart && !hasPlus) return;
+                  e.preventDefault();
+                  return;
+                }
+                if (/\d/.test(k)) return;
+                e.preventDefault();
+              }
+            : undefined
+        }
+        onPaste={
+          name === "phone"
+            ? (e) => {
+                const text = e.clipboardData.getData("text");
+                if (!/^\+?\d+$/.test(text)) e.preventDefault();
+              }
+            : undefined
+        }
+        title={name === "phone" ? "Enter a Philippine phone number in +63 format (e.g., +639XXXXXXXXX)" : undefined}
         required={required}
         className="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-teal"
       />

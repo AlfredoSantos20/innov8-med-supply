@@ -1,29 +1,27 @@
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 export function Logo({ className, light = false }: { className?: string; light?: boolean }) {
   return (
     <Link
       to="/"
       className={cn("flex items-center gap-2.5 font-display font-bold", className)}
+      onClick={() => {
+        // Smoothly scroll to top when clicking the logo
+        if (typeof window !== "undefined") {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }}
     >
-      <span className="relative grid h-9 w-9 place-items-center rounded-xl bg-gradient-button text-white shadow-glow">
-        <span className="text-sm tracking-tight">i8</span>
-        <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-emerald shadow-glow" />
-      </span>
-      <span className="flex flex-col leading-none">
-        <span className={cn("text-base", light ? "text-white" : "text-primary")}>
-          INNOV<span className="text-emerald">8</span>
-        </span>
-        <span
-          className={cn(
-            "text-[10px] font-medium uppercase tracking-[0.18em]",
-            light ? "text-white/60" : "text-muted-foreground",
-          )}
-        >
-          International
-        </span>
-      </span>
+      <motion.img
+        src="/assets/images/innov8logo.png"
+        alt="Innov8 International Distribution Inc."
+        className="h-12 md:h-16 w-auto object-contain"
+        initial={{ opacity: 0, y: 6, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
+      />
     </Link>
   );
 }

@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import type { HTMLAttributes } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 
 export function GlassCard({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
@@ -30,7 +30,7 @@ export function StatCard({
   label,
   className,
 }: {
-  value: string;
+  value: ReactNode;
   label: string;
   className?: string;
 }) {

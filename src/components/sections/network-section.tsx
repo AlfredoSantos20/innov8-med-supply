@@ -1,5 +1,4 @@
 import { MapPin } from "lucide-react";
-import mapImg from "@/assets/network-map.jpg";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { REGIONS } from "@/constants/site";
 
@@ -28,24 +27,22 @@ export function NetworkSection() {
             <div className="mt-8 grid grid-cols-2 gap-2 text-sm md:grid-cols-2">
               {REGIONS.map((r) => (
                 <div key={r} className="flex items-center gap-2 text-white/80">
-                  <MapPin className="h-3.5 w-3.5 text-emerald" />
+                  <MapPin className="h-4 w-4 shrink-0 text-emerald" />
                   <span className="truncate">{r}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="relative">
-            <div className="overflow-hidden rounded-2xl border border-white/10">
-              <img
-                src={mapImg}
-                alt="Distribution network across the Philippines"
-                loading="lazy"
-                width={1400}
-                height={900}
-                className="h-full w-full object-cover"
-              />
-            </div>
+          <div className="relative group">
+            <img
+              src="/assets/images/map.png"
+              alt="Distribution network across the Philippines"
+              loading="lazy"
+              width={1400}
+              height={900}
+              className="mx-auto w-[88%] rounded-2xl object-contain"
+            />
           </div>
         </div>
       </div>

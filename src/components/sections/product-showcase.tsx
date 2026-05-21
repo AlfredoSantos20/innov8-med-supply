@@ -9,8 +9,8 @@ export function ProductShowcase({ limit }: { limit?: number }) {
   return (
     <Section id="products">
       <SectionHeader
-        eyebrow="Catalog"
-        title="Medical products & categories"
+        eyebrow="Products"
+        title="Medical products"
         description="From PPE and diagnostics to hospital furniture and respiratory care — sourced from trusted manufacturers, ready for nationwide delivery."
       />
 
@@ -47,7 +47,7 @@ export function ProductShowcase({ limit }: { limit?: number }) {
         <div className="mt-12 flex justify-center">
           <Link to="/products">
             <BrandButton variant="outline" size="lg">
-              View full catalog <ArrowUpRight className="h-4 w-4" />
+              View full Products <ArrowUpRight className="h-4 w-4" />
             </BrandButton>
           </Link>
         </div>

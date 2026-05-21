@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import type { HTMLAttributes, ReactNode } from "react";
+import { motion } from "framer-motion";
 
 export function Section({
   id,
@@ -11,12 +12,16 @@ export function Section({
   children: ReactNode;
 }) {
   return (
-    <section
+    <motion.section
       id={id}
       className={cn("container-px mx-auto max-w-7xl py-20 md:py-28", className)}
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
-    </section>
+    </motion.section>
   );
 }
 
@@ -51,7 +56,15 @@ export function SectionHeader({
           {eyebrow}
         </div>
       )}
-      <h2 className="text-3xl font-bold text-foreground md:text-5xl">{title}</h2>
+      <motion.h2
+        className="text-3xl font-bold text-foreground md:text-5xl"
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.6 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      >
+        {title}
+      </motion.h2>
       {description && (
         <p className="mt-4 text-base text-muted-foreground md:text-lg">{description}</p>
       )}
