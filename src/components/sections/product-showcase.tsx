@@ -14,7 +14,7 @@ export function ProductShowcase({ limit }: { limit?: number }) {
         description="From PPE and diagnostics to hospital furniture and respiratory care — sourced from trusted manufacturers, ready for nationwide delivery."
       />
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {items.map((p) => (
           <article
             key={p.id}

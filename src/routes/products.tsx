@@ -37,7 +37,7 @@ function ProductsPage() {
 
   return (
     <SiteLayout>
-      <div className="pt-28">
+      <div className="pt-20 md:pt-28">
         <Section className="py-12 md:py-16">
           <SectionHeader
             eyebrow="Products"
@@ -61,18 +61,19 @@ function ProductsPage() {
                 key={c}
                 onClick={() => setActive(c)}
                 className={cn(
-                  "rounded-full border px-4 py-1.5 text-xs font-medium transition-colors",
+                  "rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal/40 active:scale-[.98]",
                   active === c
-                    ? "border-transparent bg-gradient-button text-white shadow-soft"
+                    ? "border-transparent bg-gradient-button text-white shadow-soft ring-1 ring-teal/40"
                     : "border-border bg-card text-muted-foreground hover:border-teal/40 hover:text-primary",
                 )}
+                aria-pressed={active === c}
               >
                 {c}
               </button>
             ))}
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
             {filtered.map((p) => (
               <article
                 key={p.id}
