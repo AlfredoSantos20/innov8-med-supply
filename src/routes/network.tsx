@@ -11,6 +11,9 @@ export const Route = createFileRoute("/network")({
       { property: "og:title", content: "Nationwide Distribution Network" },
       { property: "og:description", content: "From Luzon to Mindanao — one reliable medical supply chain." },
     ],
+    links: [
+      { rel: "canonical", href: "/network" },
+    ],
   }),
   component: () => (
     <SiteLayout>

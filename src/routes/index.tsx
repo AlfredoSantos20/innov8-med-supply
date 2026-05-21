@@ -10,6 +10,9 @@ import { WhyChooseUs } from "@/components/sections/why-choose-us";
 import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    links: [{ rel: "canonical", href: "/" }],
+  }),
   component: Index,
 });
 

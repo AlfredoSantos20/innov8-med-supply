@@ -15,6 +15,9 @@ export const Route = createFileRoute("/products")({
       { property: "og:title", content: "Medical Products" },
       { property: "og:description", content: "PPE, diagnostics, hospital furniture, mobility and respiratory care equipment." },
     ],
+    links: [
+      { rel: "canonical", href: "/products" },
+    ],
   }),
   component: ProductsPage,
 });

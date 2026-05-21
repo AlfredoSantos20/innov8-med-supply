@@ -13,6 +13,9 @@ export const Route = createFileRoute("/about")({
       { property: "og:title", content: "About Innov8 International" },
       { property: "og:description", content: "Our story, mission and nationwide healthcare partnership." },
     ],
+    links: [
+      { rel: "canonical", href: "/about" },
+    ],
   }),
   component: AboutPage,
 });

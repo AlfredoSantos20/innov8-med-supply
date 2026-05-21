@@ -14,6 +14,9 @@ export const Route = createFileRoute("/contact")({
       { property: "og:title", content: "Contact Innov8 International" },
       { property: "og:description", content: "Get a response to your inquiry within 24 hours from our team." },
     ],
+    links: [
+      { rel: "canonical", href: "/contact" },
+    ],
   }),
   component: ContactPage,
 });
