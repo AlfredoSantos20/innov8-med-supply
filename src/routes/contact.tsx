@@ -52,7 +52,7 @@ function ContactPage() {
                     <MapPin className="h-4 w-4" />
                   </div>
                   <div>
-                    <div className="font-medium text-foreground">Head Office</div>
+                    <div className="font-medium text-foreground">Address</div>
                     <div className="text-muted-foreground">{COMPANY.address}</div>
                   </div>
                 </div>
@@ -61,7 +61,7 @@ function ContactPage() {
                     <Phone className="h-4 w-4" />
                   </div>
                   <div>
-                    <div className="font-medium text-foreground">Phone</div>
+                    <div className="font-medium text-foreground">Contact</div>
                     <div className="text-muted-foreground">{COMPANY.phone}</div>
                   </div>
                 </div>

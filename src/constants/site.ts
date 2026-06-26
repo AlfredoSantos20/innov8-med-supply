@@ -13,8 +13,8 @@ export const COMPANY = {
   tagline: "Nationwide Distributor of Medical Supplies",
   established: 2010,
   email: "info@innov8intl.com",
-  phone: "+63 (2) 8000-0000",
-  address: "Metro Manila, Philippines",
+  phone: "0288718225",
+  address: "2nd Flr. Cinderella Bldg. 825 EDSA Ave. Diliman, Quezon City, Philippines",
 };
 
 export const NAV_LINKS = [
