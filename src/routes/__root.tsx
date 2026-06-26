@@ -106,16 +106,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
+  // In SSR, render full document. In SPA (client), render a fragment.
+  if (typeof document === "undefined") {
+    return (
+      <html lang="en">
+        <head>
+          <HeadContent />
+        </head>
+        <body>
+          {children}
+          <Scripts />
+        </body>
+      </html>
+    );
+  }
+
   return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
+    <>
+      <HeadContent />
+      {children}
+    </>
   );
 }
 
